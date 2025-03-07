@@ -72,6 +72,16 @@ jar {
 	}
 }
 
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+
+    manifest {
+        attributes "FMLCorePlugin": "net.shadowfacts.forgelin.preloader.ForgelinPlugin",
+					"FMLCorePluginContainsFMLMod": "true"
+    }
+    classifier = 'deobf'
+}
+
 shadowJar {
 	classifier = ""
 	dependencies {
@@ -93,6 +103,7 @@ tasks.build.dependsOn shadowJar
 
 artifacts {
 	archives shadowJar
+	archives deobfJar
 }
 
 reobf {
